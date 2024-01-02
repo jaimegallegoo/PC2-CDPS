@@ -1,4 +1,4 @@
-FROM debian:10
+FROM python:3.7-alpine
 
 # Actualizar sistema
 RUN apt-get update -y
