@@ -3,7 +3,7 @@
 # Marta Volpini López
 
 import logging, sys, os
-from lib_mv import mv_pesada
+from lib_mv import mv_pesada, mv_docker
 
 def init_log():
     # Creacion y configuracion del logger
@@ -25,8 +25,10 @@ def main():
 
     if orden == "parte1":
         puerto = sys.argv[2]
-
         mv_pesada(puerto)
+
+    if orden == "parte2":
+        mv_docker()
 
     else:
         print(f"Orden no reconocida: {orden}")
