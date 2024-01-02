@@ -2,7 +2,7 @@
 # Jaime Gallego Chillón
 # Marta Volpini López
 
-import logging, sys, subprocess, json
+import logging, sys
 from lib_mv import mv_pesada
 
 def init_log():

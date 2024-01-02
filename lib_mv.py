@@ -4,9 +4,7 @@
 # Jaime Gallego Chillón
 # Marta Volpini López
 
-import logging, subprocess, os, getpass
-from lxml import etree
-from copy import deepcopy
+import logging, subprocess
 
 log = logging.getLogger('auto_p2')
 
