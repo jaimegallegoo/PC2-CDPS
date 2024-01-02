@@ -14,6 +14,6 @@ def mv_pesada (puerto):
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git'])
   # Cambiar al directorio clonado
   os.chdir('practica_creativa2/bookinfo/src/productpage')
-  subprocess.call(['cd', 'practica_creativa2/bookinfo/src/productpage'])
+  #subprocess.call(['cd', 'practica_creativa2/bookinfo/src/productpage'])
   subprocess.call(['pip3', 'install', '-r', 'requirements.txt'])
   subprocess.call(['python3', 'productpage_monolith.py', f'{puerto}'])
