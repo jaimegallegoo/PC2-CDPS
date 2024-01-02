@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  g27-productpage:
+    image: g27/product-page
+    ports:
+      - "9080:9080"
+
+  g27-details:
+    image: g27/details
+    ports:
+      - "9080:9080"
+    environment:
+      SERVICE_VERSION: v1
+      ENABLE_EXTERNAL_BOOK_SERVICE: true
+
+  g27-reviews:
+    image: nombre_imagen_servicio3:etiqueta
+    ports:
+      - "9080:9080"
+    environment:
+      VARIABLE_5: valor5
+      VARIABLE_6: valor6
+
+  g27-ratings:
+    image: g27/ratings
+    ports:
+      - "9080:9080"
+    environment:
+      SERVICE_VERSION: v1
