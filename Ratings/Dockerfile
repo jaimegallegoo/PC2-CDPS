@@ -1,10 +1,7 @@
-FROM debian:10
+FROM node:12.18.1-slim
 
 # Actualizar sistema
 RUN apt-get update -y
-
-#Instalar pip
-RUN apt-get install -y python3-pip
 
 #Instalar github
 RUN apt-get install -y git
@@ -12,17 +9,24 @@ RUN apt-get install -y git
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /app
 
-# Cambiar directorio al de productpage
-WORKDIR /app/bookinfo/src/productpage
+# Cambiar directorio al de ratings
+WORKDIR /app/bookinfo/src/ratings
 
-# Instalar requerimientos
-RUN pip3 install -r requirements.txt
+# Copiar los ficheros package.json y ratings.js
+COPY package.json /opt/microservices/
+COPY ratings.js /opt/microservices/
 
-# Lanzar app en el puerto 9080
-CMD ["python3", "productpage_monolith.py", "9080"]
+# Especificar variables de entorno
+ENV SERVICE_VERSION v1
+
+# Instalar las dependencias
+RUN npm install
 
 # Indicar el puerto accesible
 EXPOSE 9080
+
+# Lanzar app en el puerto 9080
+CMD ["node", "ratings.js", "9080"]
 
 # Indicar que se ha instalado correctamente
 RUN echo "La imagen Docker se ha instalado correctamente"
