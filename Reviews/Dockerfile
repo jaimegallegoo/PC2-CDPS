@@ -19,7 +19,7 @@ WORKDIR /app/bookinfo/src/productpage
 RUN pip3 install -r requirements.txt
 
 # Lanzar app en el puerto 9080
-CMD ["python3", "productpage.py", "9080"]
+CMD ["python3", "productpage_monolith.py", "9080"]
 
 # Indicar el puerto accesible
 EXPOSE 9080
