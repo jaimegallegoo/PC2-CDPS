@@ -19,11 +19,11 @@ COPY details.rb /opt/microservices/
 ENV SERVICE_VERSION v1
 ENV ENABLE_EXTERNAL_BOOK_SERVICE true
 
-# Lanzar app en el puerto 9080
-CMD ["ruby", "details.rb", "9080"]
-
 # Indicar el puerto accesible
 EXPOSE 9080
+
+# Lanzar app en el puerto 9080
+CMD ["ruby", "details.rb", "9080"]
 
 # Indicar que se ha instalado correctamente
 RUN echo "La imagen Docker se ha instalado correctamente"
