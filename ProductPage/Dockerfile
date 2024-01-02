@@ -3,9 +3,6 @@ FROM python:3.7-alpine
 # Actualizar sistema
 RUN apt-get update -y
 
-#Instalar pip
-RUN apt-get install -y python3-pip
-
 #Instalar github
 RUN apt-get install -y git
 
@@ -16,7 +13,7 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /app
 WORKDIR /app/bookinfo/src/productpage
 
 # Instalar requerimientos
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Lanzar app en el puerto 9080
 CMD ["python3", "productpage.py", "9080"]
