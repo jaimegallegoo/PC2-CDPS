@@ -27,8 +27,12 @@ def main():
         puerto = sys.argv[2]
         mv_pesada(puerto)
 
-    if orden == "parte2":
+    elif orden == "parte2":
         mv_docker()
+
+    elif orden == "parte3":
+        version = sys.argv[2]
+        mv_pesada(version)
 
     else:
         print(f"Orden no reconocida: {orden}")
