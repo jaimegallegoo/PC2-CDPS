@@ -16,7 +16,7 @@ WORKDIR /practica_creativa2/bookinfo/src/details
 RUN ls -la /practica_creativa2/bookinfo/src/details
 
 # Copiar el fichero details.rb en la ruta /opt/microservices/
-COPY details.rb details.rb
+COPY /var/lib/docker/tmp/details.rb /opt/microservices/
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
