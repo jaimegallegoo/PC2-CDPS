@@ -32,7 +32,12 @@ def main():
 
     elif orden == "parte3":
         version = sys.argv[2]
-        mv_docker_compose(version)
+        if version == "v1":
+            mv_docker_compose({'version': 'v1', 'ratings': False, 'star': 'black'})
+        elif version == "v2":
+            mv_docker_compose({'version': 'v2', 'ratings': True, 'star': 'black'})
+        else:
+            mv_docker_compose({'version': 'v3', 'ratings': True, 'star': 'red'})
 
     else:
         print(f"Orden no reconocida: {orden}")
