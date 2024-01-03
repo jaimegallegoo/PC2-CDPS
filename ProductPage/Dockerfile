@@ -1,10 +1,10 @@
 FROM python:3.7-alpine
 
 # Actualizar sistema
-#RUN apt-get update -y
+RUN apk update && apk upgrade
 
-#Instalar github
-RUN apt-get install -y git
+# Instalar git
+RUN apk add git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /app
