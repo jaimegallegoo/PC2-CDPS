@@ -4,7 +4,7 @@ FROM node:12.18.1-slim
 #RUN apt-get update -y
 
 #Instalar github
-RUN apt-get install -y git
+#RUN apt-get install -y git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git 
