@@ -30,7 +30,7 @@ def mv_docker_compose (version, ratings, star):
   #Clonar repositorio de la app
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git'])
   #Crear la imagen de ProductPage
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page', '/ProductPage'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page', './ProductPage'])
   #Crear la imagen de Details
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details', '/Details'])
   #Crear la imagen de Reviews
