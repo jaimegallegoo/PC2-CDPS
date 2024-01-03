@@ -1,5 +1,5 @@
 #FROM python:3.7-alpine
-FROM debian:10
+FROM python:3
 
 # Actualizar sistema
 #RUN apk update && apk upgrade
