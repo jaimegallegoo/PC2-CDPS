@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.7
 
 # Actualizar sistema
 RUN apk update && apk upgrade
