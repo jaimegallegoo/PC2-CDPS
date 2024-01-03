@@ -12,6 +12,9 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 # Cambiar al directorio de details
 WORKDIR /practica_creativa2/bookinfo/src/details
 
+# Mostrar el contenido del directorio antes de la copia
+RUN ls -la /practica_creativa2/bookinfo/src/details
+
 # Copiar el fichero details.rb en la ruta /opt/microservices/
 COPY details.rb /opt/microservices/
 
