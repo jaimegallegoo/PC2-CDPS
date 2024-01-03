@@ -3,7 +3,7 @@
 # Marta Volpini López
 
 import logging, sys, os
-from lib_mv import mv_pesada, mv_docker
+from lib_mv import mv_pesada, mv_docker, mv_docker_compose
 
 def init_log():
     # Creacion y configuracion del logger
@@ -32,7 +32,7 @@ def main():
 
     elif orden == "parte3":
         version = sys.argv[2]
-        mv_pesada(version)
+        mv_docker_compose(version)
 
     else:
         print(f"Orden no reconocida: {orden}")
