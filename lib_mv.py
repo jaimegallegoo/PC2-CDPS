@@ -32,18 +32,18 @@ def mv_docker_compose (version, ratings, star):
   #Crear la imagen de ProductPage
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page', './ProductPage'])
   #Crear la imagen de Details
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details', '/Details'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details', './Details'])
   #Crear la imagen de Reviews
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
-  subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v1', '--build-arg enable_ratings=false', '-t', 'g27/reviews-v1', '/reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v2', '--build-arg enable_ratings=true', '--build-arg star_color=black', '-t', 'g27/reviews-v2', '/reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v3', '--build-arg enable_ratings=true', '--build-arg star_color=red', '-t', 'g27/reviews-v3', '/reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v1', '--build-arg enable_ratings=false', '-t', 'g27/reviews-v1', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v2', '--build-arg enable_ratings=true', '--build-arg star_color=black', '-t', 'g27/reviews-v2', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v3', '--build-arg enable_ratings=true', '--build-arg star_color=red', '-t', 'g27/reviews-v3', './reviews-wlpcfg'])
   
   #Cambiar al directorio raíz
   os.chdir(raiz)
   #Crear la imagen de Ratings
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings', '/Ratings'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings', './Ratings'])
 
   #Crear el contenido del fichero docker-compose.yaml
   contenido_docker_compose = f"""
