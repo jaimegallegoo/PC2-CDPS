@@ -7,10 +7,10 @@ RUN apt-get update -y
 RUN apt-get install -y git
 
 # Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
+RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git 
 
 # Cambiar al directorio de details
-WORKDIR /practica_creativa2/bookinfo/src/details
+WORKDIR /practica_creativa2/bookinfo/src/details/details.rb
 
 # Mostrar el contenido del directorio antes de la copia
 RUN ls -la /practica_creativa2/bookinfo/src/details
