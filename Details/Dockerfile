@@ -10,7 +10,7 @@ RUN apt-get install -y git
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de details
-WORKDIR /app/bookinfo/src/details
+WORKDIR /practica_creativa2/bookinfo/src/details
 
 # Copiar el fichero details.rb
 COPY details.rb /opt/microservices/

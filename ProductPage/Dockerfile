@@ -10,7 +10,7 @@ RUN apk add git
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de productpage
-WORKDIR /app/bookinfo/src/productpage
+WORKDIR /practica_creativa2/bookinfo/src/productpage
 
 # Instalar requerimientos
 RUN pip install -r requirements.txt

@@ -10,7 +10,7 @@ RUN apt-get install -y git
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de ratings
-WORKDIR /app/bookinfo/src/ratings
+WORKDIR /practica_creativa2/bookinfo/src/ratings
 
 # Copiar los ficheros package.json y ratings.js
 COPY package.json /opt/microservices/
