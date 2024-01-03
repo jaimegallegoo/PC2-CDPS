@@ -12,9 +12,11 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 # Cambiar directorio al de productpage
 WORKDIR /practica_creativa2/bookinfo/src/productpage
 
-# Editar el archivo requirements.txt
-RUN sed -i 's/simplejson==3.16.0/simplejson/g' requirements.txt && \
-    echo "requests" >> requirements.txt
+# Eliminar la versión específica de urllib3
+RUN sed -i 's/urllib3==1.26.5/urllib3/' requirements.txt
+
+# Eliminar la versión específica de requests
+RUN sed -i 's/requests==2.21.0/requests/' requirements.txt
 
 # Instalar requerimientos
 RUN pip install --upgrade pip
