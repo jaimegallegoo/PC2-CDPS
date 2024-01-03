@@ -1,10 +1,13 @@
-FROM python:3.7-alpine
+FROM debian:10
 
 # Actualizar sistema
-RUN apk update && apk upgrade
+RUN apt-get update -y
 
-# Instalar git
-RUN apk add git
+#Instalar pip
+RUN apt-get install -y python3-pip
+
+#Instalar github
+RUN apt-get install -y git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
@@ -12,15 +15,8 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 # Cambiar directorio al de productpage
 WORKDIR /practica_creativa2/bookinfo/src/productpage
 
-# Eliminar la versión específica de urllib3
-RUN sed -i 's/urllib3==1.26.5/urllib3/' requirements.txt
-
-# Eliminar la versión específica de requests
-RUN sed -i 's/requests==2.21.0/requests/' requirements.txt
-
 # Instalar requerimientos
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Indicar el puerto accesible
 EXPOSE 9080
