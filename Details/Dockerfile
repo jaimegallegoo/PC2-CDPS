@@ -13,7 +13,7 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 #WORKDIR /practica_creativa2/bookinfo/src/details
 
 # Copiar el fichero details.rb
-COPY /practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/details.rb
+COPY ../practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/details.rb
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
