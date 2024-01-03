@@ -7,7 +7,7 @@ RUN apt-get update -y
 RUN apt-get install -y git
 
 # Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /app
+RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de ratings
 WORKDIR /app/bookinfo/src/ratings

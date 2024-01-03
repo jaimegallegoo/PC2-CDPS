@@ -7,7 +7,7 @@ RUN apk update && apk upgrade
 RUN apk add git
 
 # Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /app
+RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de productpage
 WORKDIR /app/bookinfo/src/productpage
