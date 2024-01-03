@@ -12,6 +12,10 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 # Cambiar directorio al de productpage
 WORKDIR /practica_creativa2/bookinfo/src/productpage
 
+# Editar el archivo requirements.txt
+RUN sed -i 's/simplejson==3.16.0/simplejson/g' requirements.txt && \
+    echo "requests" >> requirements.txt
+
 # Instalar requerimientos
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
