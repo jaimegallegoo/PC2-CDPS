@@ -10,14 +10,14 @@ RUN apt-get install -y git
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de details
-#WORKDIR /practica_creativa2/bookinfo/src/details
+WORKDIR /practica_creativa2/bookinfo/
 
 # Copiar el fichero details.rb
-COPY /practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/
+COPY /src/details/details.rb /opt/microservices/
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
-ENV ENABLE_EXTERNAL_BOOK_SERVICE true
+ENV ENABLE_EXTERNAL_BOOK_SERVICE "true"
 
 # Indicar el puerto accesible
 EXPOSE 9080
