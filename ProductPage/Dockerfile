@@ -1,23 +1,10 @@
-#FROM python:3.7-alpine
-FROM python:3
+FROM python:3.7-alpine
 
 # Actualizar sistema
-#RUN apk update && apk upgrade
+RUN apk update && apk upgrade
 
 # Instalar git
-#RUN apk add git
-
-
-# Actualizar sistema
-RUN apt-get update -y
-
-#Instalar pip
-RUN apt-get install -y python3-pip
-
-#Instalar github
-RUN apt-get install -y git
-
-
+RUN apk add git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
@@ -26,8 +13,8 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 WORKDIR /practica_creativa2/bookinfo/src/productpage
 
 # Instalar requerimientos
-#RUN pip install --upgrade pip
-RUN pip3 install -r requirements.txt
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 # Indicar el puerto accesible
 EXPOSE 9080
