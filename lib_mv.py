@@ -30,10 +30,13 @@ def mv_docker_compose (version, ratings, star):
   #Clonar repositorio de la app
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git'])
   #Crear la imagen de ProductPage
+  log.debug("CONSTRUIR PRODUCT_PAGE")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page', './ProductPage'])
   #Crear la imagen de Details
+  log.debug("CONSTRUIR DETAILS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details', './Details'])
   #Crear la imagen de Reviews
+  log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '"$(pwd)":/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
   subprocess.call(['sudo', 'docker', 'build', '--build-arg service_version=v1', '--build-arg enable_ratings=false', '-t', 'g27/reviews-v1', './reviews-wlpcfg'])
@@ -43,9 +46,11 @@ def mv_docker_compose (version, ratings, star):
   #Cambiar al directorio raíz
   os.chdir(raiz)
   #Crear la imagen de Ratings
+  log.debug("CONSTRUIR RATINGS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings', './Ratings'])
 
   #Crear el contenido del fichero docker-compose.yaml
+  log.debug("CONSTRUIR DOCKER_COMPOSE")
   contenido_docker_compose = f"""
       version: '3.3'
 
