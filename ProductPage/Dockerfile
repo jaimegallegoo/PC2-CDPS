@@ -1,10 +1,11 @@
-FROM python:3.7-alpine
+#FROM python:3.7-alpine
+FROM debian:10
 
 # Actualizar sistema
-RUN apk update && apk upgrade
+RUN apt update && apt upgrade
 
 # Instalar git
-RUN apk add git
+RUN apt add git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
