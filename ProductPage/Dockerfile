@@ -13,7 +13,7 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 WORKDIR /practica_creativa2/bookinfo/src/productpage
 
 # Instalar requerimientos
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Indicar el puerto accesible
 EXPOSE 9080
