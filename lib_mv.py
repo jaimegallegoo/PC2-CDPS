@@ -47,7 +47,7 @@ def mv_docker_compose (version, ratings, star):
 
   #Crear el contenido del fichero docker-compose.yaml
   contenido_docker_compose = f"""
-      version: '3.8'
+      version: '3.3'
 
       services:
         g27-productpage:
