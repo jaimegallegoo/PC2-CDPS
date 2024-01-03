@@ -1,29 +1,24 @@
+# Utilizar la imagen base de Ruby 2.7.1 slim
 FROM ruby:2.7.1-slim
 
-# Actualizar sistema
-RUN apt-get update -y
+# Instalar Git (necesario para clonar el repositorio)
+RUN apt-get update && apt-get install -y git
 
-#Instalar github
-RUN apt-get install -y git
+# Clonar el repositorio
+RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /opt/microservices
 
-# Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
+# Establecer el directorio de trabajo
+WORKDIR /opt/microservices/bookinfo/src/details
 
-# Cambiar directorio al de details
-#WORKDIR ./practica_creativa2/bookinfo/src/details
-
-# Copiar el fichero details.rb
-COPY /practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/
+# Copiar el fichero details.rb en la ruta /opt/microservices/ dentro del contenedor
+COPY details.rb .
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
 ENV ENABLE_EXTERNAL_BOOK_SERVICE true
 
-# Indicar el puerto accesible
+# Exponer el puerto 9080
 EXPOSE 9080
 
-# Lanzar app en el puerto 9080
+# Ejecutar el fichero details.rb usando la instrucción ruby y añadir el puerto
 CMD ["ruby", "details.rb", "9080"]
-
-# Indicar que se ha instalado correctamente
-RUN echo "La imagen Docker se ha instalado correctamente"
