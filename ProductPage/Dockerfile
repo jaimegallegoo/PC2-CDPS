@@ -1,7 +1,7 @@
 FROM python:3.7-alpine
 
 # Actualizar sistema
-RUN apt-get update -y
+#RUN apt-get update -y
 
 #Instalar github
 RUN apt-get install -y git
