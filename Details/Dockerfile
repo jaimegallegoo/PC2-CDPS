@@ -14,7 +14,8 @@ ENV ENABLE_EXTERNAL_BOOK_SERVICE true
 RUN apt-get update \
     && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
-    && cp practica_creativa2/bookinfo/src/details/details.rb /opt/microservices
+    && cp practica_creativa2/bookinfo/src/details/details.rb /opt/microservices \
+    && ls /opt/microservices
 
 # Lanzar app en el puerto 9080
 CMD ["ruby", "practica_creativa2/bookinfo/src/details/details.rb", "9080"]
