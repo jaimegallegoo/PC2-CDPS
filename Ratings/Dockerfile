@@ -1,4 +1,4 @@
-FROM node:12.18.1-slim
+FROM node:14-slim
 
 # Indicar el puerto accesible
 EXPOSE 9080
