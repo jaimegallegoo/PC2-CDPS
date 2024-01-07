@@ -9,8 +9,8 @@ WORKDIR /home
 # Actualizar sistema e instalar dependencias
 RUN apt-get update && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
-    && cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
-    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices
+    && cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices/ \
+    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices/
 
 # Cambiar directorio al de details
 WORKDIR /opt/microservices
