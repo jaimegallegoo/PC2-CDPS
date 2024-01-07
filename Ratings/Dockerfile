@@ -4,7 +4,7 @@ FROM node:14-slim
 EXPOSE 9080
 
 # Cambiar directorio al de home
-WORKDIR /home
+WORKDIR /opt/mricroservices
 
 # Actualizar sistema e instalar dependencias
 RUN apt-get update && apt-get install -y git \
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y git \
     && npm install
 
 # Cambiar directorio al de details
-WORKDIR /opt/microservices
+# WORKDIR /opt/microservices
 
 # Lanzar app en el puerto 9080
 CMD ["node", "ratings.js", "9080"]
