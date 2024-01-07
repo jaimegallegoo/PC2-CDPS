@@ -1,29 +1,24 @@
 FROM node:12.18.1-slim
 
-# Actualizar sistema
-RUN apt-get update -y
+# Indicar el puerto accesible
+EXPOSE 9080
 
-#Instalar github
-RUN apt-get install -y git
-
-# Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git 
-
-# Cambiar directorio al de ratings
-WORKDIR /practica_creativa2/bookinfo/src/ratings
-
-# Copiar los ficheros package.json y ratings.js
-COPY package.json /opt/microservices/
-COPY ratings.js /opt/microservices/
+# Cambiar directorio al de home
+WORKDIR /home
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
 
-# Instalar las dependencias
-RUN npm install
+# Actualizar sistema e instalar dependencias
+RUN apt-get update -y \
+    && apt-get install -y git \
+    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
+    && cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
+    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices \
+    && npm install
 
-# Indicar el puerto accesible
-EXPOSE 9080
+# Cambiar directorio al de details
+WORKDIR /practica_creativa2/bookinfo/src/ratings/
 
 # Lanzar app en el puerto 9080
 CMD ["node", "ratings.js", "9080"]
