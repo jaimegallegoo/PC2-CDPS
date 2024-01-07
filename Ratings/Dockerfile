@@ -3,6 +3,9 @@ FROM node:14-slim
 # Indicar el puerto accesible
 EXPOSE 9080
 
+# Cambiar directorio al de home
+WORKDIR /home
+
 # Actualizar sistema e instalar dependencias
 RUN apt-get update && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
