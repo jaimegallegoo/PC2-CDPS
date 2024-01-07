@@ -20,4 +20,4 @@ RUN apt-get update && apt-get install -y git \
 CMD ["node", "ratings.js", "9080"]
 
 # Indicar que se ha instalado correctamente
-RUN echo "La imagen Docker se ha instalado correctamente"
+RUN echo "La imagen Docker de RATINGS se ha instalado correctamente"

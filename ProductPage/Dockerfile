@@ -20,4 +20,4 @@ WORKDIR /practica_creativa2/bookinfo/src/productpage/
 CMD ["python3", "productpage.py", "9080"]
 
 # Indicar que se ha instalado correctamente
-RUN echo "La imagen Docker se ha instalado correctamente"
+RUN echo "La imagen Docker de PRODUCT PAGE se ha instalado correctamente"

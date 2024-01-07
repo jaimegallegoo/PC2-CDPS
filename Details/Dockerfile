@@ -24,4 +24,4 @@ WORKDIR /practica_creativa2/bookinfo/src/details/
 CMD ["ruby", "details.rb", "9080"]
 
 # Indicar que se ha instalado correctamente
-RUN echo "La imagen Docker se ha instalado correctamente"
+RUN echo "La imagen Docker de DETAILS se ha instalado correctamente"
