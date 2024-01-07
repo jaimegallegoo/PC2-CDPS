@@ -8,7 +8,7 @@ WORKDIR /home
 
 # Actualizar sistema
 RUN apt-get update \
-    && apt-get install git \
+    && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
     && apt-get install -y python3-pip \
     && pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
