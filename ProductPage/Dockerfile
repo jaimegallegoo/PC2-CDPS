@@ -1,5 +1,8 @@
 FROM python:3.7.7-slim
 
+# Indicar el puerto accesible
+EXPOSE 9080
+
 # Cambiar directorio al de home
 WORKDIR /home
 
@@ -12,9 +15,6 @@ RUN apt-get update \
 
 # Cambiar directorio al de productpage
 WORKDIR /practica_creativa2/bookinfo/src/productpage/
-
-# Indicar el puerto accesible
-EXPOSE 9080
 
 # Lanzar app en el puerto 9080
 CMD ["python3", "productpage.py", "9080"]
