@@ -11,9 +11,6 @@ RUN apt-get update \
     && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
-# Cambiar al directorio /opt/microservices
-WORKDIR /opt/microservices
-
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
 ENV ENABLE_EXTERNAL_BOOK_SERVICE true
