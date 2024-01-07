@@ -7,7 +7,7 @@ EXPOSE 9080
 WORKDIR /home
 
 # Actualizar sistema
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2 \
+RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
     && apt-get update \
     && apt-get install -y python3-pip \
     && pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
