@@ -85,5 +85,5 @@ def mv_docker_compose (version, ratings, star):
 
   #Crear los contenedores
   #subprocess.call(['sudo', 'docker-compose', 'up', '-d'])
-  subprocess.call(['sudo', 'docker-compose', '--env-file', 'envs_v1.env', 'up'])
-  #subprocess.call(['sudo', 'docker-compose', 'up', '--build'])
+  #subprocess.call(['sudo', 'docker-compose', '--env-file', 'envs_v1.env', 'up'])
+  subprocess.call(['sudo', 'docker-compose', 'up', '--build'])
