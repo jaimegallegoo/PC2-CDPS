@@ -7,10 +7,11 @@ EXPOSE 9080
 WORKDIR /home
 
 # Actualizar sistema
-RUN apk update && apk upgrade
+RUN apt-get update
+RUN apt-get upgrade
 
 # Instalar git
-RUN apk add git
+RUN apt-get install git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
