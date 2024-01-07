@@ -10,8 +10,7 @@ WORKDIR /home
 ENV SERVICE_VERSION v1
 
 # Actualizar sistema e instalar dependencias
-RUN apt-get update -y \
-    && apt-get install -y git \
+RUN apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
     && cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
     && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices \
