@@ -10,11 +10,12 @@ WORKDIR /home
 RUN apt-get update && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
     && cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
-    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices \
-    && npm install
+    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices
 
 # Cambiar directorio al de details
 WORKDIR /opt/microservices
+# Instalar las dependencias
+RUN npm install
 
 # Lanzar app en el puerto 9080
 CMD ["node", "ratings.js", "9080"]
