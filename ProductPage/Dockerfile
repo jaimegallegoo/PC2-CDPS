@@ -10,7 +10,6 @@ WORKDIR /home
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2 \
     && apt-get update \
     && apt-get install -y python3-pip \
-    && pip install --upgrade pip \
     && pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
 
 # Lanzar app en el puerto 9080
