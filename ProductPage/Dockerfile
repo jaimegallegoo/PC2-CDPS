@@ -10,7 +10,7 @@ WORKDIR /home
 RUN apt-get update
 
 # Instalar git
-RUN apt-get install git
+RUN apt-get install -y git
 
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
