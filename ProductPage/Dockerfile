@@ -8,6 +8,7 @@ WORKDIR /home
 
 # Actualizar sistema
 RUN apt-get update
+RUN apt-get install -y python3-pip
 
 # Instalar git
 RUN apt-get install -y git
@@ -18,7 +19,7 @@ RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 RUN cd practica_creativa2/bookinfo/src/productpage/
 
 # Instalar requerimientos
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Lanzar app en el puerto 9080
 CMD ["python3", "practica_creativa2/bookinfo/src/productpage/productpage.py", "9080"]
