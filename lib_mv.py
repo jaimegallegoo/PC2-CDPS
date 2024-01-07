@@ -58,7 +58,7 @@ def mv_docker_compose (version, ratings, star):
         g27-productpage:
           image: g27/product-page
           ports:
-            - "9080:9080"
+            - "9080"
 
         g27-details:
           image: g27/details
