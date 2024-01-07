@@ -8,7 +8,6 @@ WORKDIR /home
 
 # Actualizar sistema
 RUN apt-get update
-RUN apt-get upgrade
 
 # Instalar git
 RUN apt-get install git
