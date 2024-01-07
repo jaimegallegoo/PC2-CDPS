@@ -1,4 +1,4 @@
-FROM python:3.7.7-slim
+FROM python:3.6.9
 
 # Indicar el puerto accesible
 EXPOSE 9080
