@@ -17,8 +17,6 @@ RUN apt-get install -y git
 # Clonar repositorio de la app
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
-RUN cd practica_creativa2/bookinfo/src/productpage/
-
 # Instalar requerimientos
 RUN pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
 
