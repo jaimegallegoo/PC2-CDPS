@@ -7,8 +7,8 @@ EXPOSE 9080
 WORKDIR /opt/microservices
 
 # Especificar variables de entorno
-ENV SERVICE_VERSION v1
-ENV ENABLE_EXTERNAL_BOOK_SERVICE true
+ENV SERVICE_VERSION=v1
+ENV ENABLE_EXTERNAL_BOOK_SERVICE=true
 
 # Copiar el fichero details.rb en la ruta /opt/microservices/
 COPY practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/
