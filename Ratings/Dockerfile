@@ -4,7 +4,7 @@ FROM node:14-slim
 EXPOSE 9080
 
 # Cambiar directorio al de home
-WORKDIR /opt/mricroservices
+WORKDIR /opt/microservices
 
 # Actualizar sistema e instalar dependencias
 RUN apt-get update && apt-get install -y git \
