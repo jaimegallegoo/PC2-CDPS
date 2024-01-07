@@ -9,6 +9,7 @@ WORKDIR /home
 # Actualizar sistema
 RUN apt-get update
 RUN apt-get install -y python3-pip
+RUN pip install --upgrade pip
 
 # Instalar git
 RUN apt-get install -y git
