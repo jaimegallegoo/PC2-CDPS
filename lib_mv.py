@@ -78,8 +78,6 @@ def mv_docker_compose (version, ratings, star):
           image: g27/ratings
           ports:
             - "9080:9080"
-          environment:
-            SERVICE_VERSION: v1
       """
   #Escribir el contenido en el fichero docker-compose.yaml
   with open('docker-compose.yaml', 'w') as file:
