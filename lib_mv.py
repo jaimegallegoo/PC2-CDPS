@@ -70,9 +70,9 @@ def mv_docker_compose (version, ratings, star):
           ports:
             - "9080:9080"
           environment:
-            - SERVICE_VERSION=${version}
-            - ENABLE_RATINGS=${ratings}
-            - STAR_COLOR=${star}
+            - SERVICE_VERSION={version}
+            - ENABLE_RATINGS={ratings}
+            - STAR_COLOR={star}
 
         g27-ratings:
           image: g27/ratings
