@@ -10,12 +10,12 @@ WORKDIR /opt/microservices
 RUN apt-get update && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
 
-# Cambiar directorio al de /productpage
-WORKDIR /practica_creativa2/bookinfo/src/productpage/
+# Cambiar directorio al de /ratings
+WORKDIR /practica_creativa2/bookinfo/src/ratings/
 
 # Copiar package.json y ratings.json, e instalar app
-RUN cp practica_creativa2/bookinfo/src/ratings/package.json /opt/microservices \
-    && cp practica_creativa2/bookinfo/src/ratings/ratings.js /opt/microservices \
+RUN cp package.json /opt/microservices \
+    && cp ratings.js /opt/microservices \
     && npm install
 
 # Cambiar directorio al de /opt/microservices
