@@ -9,12 +9,12 @@ EXPOSE 9080
 # Actualizar sistema e instalar dependencias
 RUN apt-get update \
     && apt-get install -y git \
-    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
+    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /app \
     && apt-get install -y python3-pip \
     && pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
 
 # Cambiar directorio al de productpage
-WORKDIR /bookinfo/src/productpage/
+WORKDIR /app/bookinfo/src/productpage/
 
 # Lanzar app en el puerto 9080
 CMD ["python3", "productpage.py", "9080"]
