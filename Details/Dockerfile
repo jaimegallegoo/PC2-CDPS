@@ -4,7 +4,7 @@ FROM ruby:2.7.1-slim
 EXPOSE 9080
 
 # Cambiar directorio al de home
-WORKDIR /opt/microservices
+WORKDIR /home
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
@@ -15,10 +15,12 @@ RUN apt-get update \
     && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
 
-COPY practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/
+WORKDIR /practica_creativa2/bookinfo/src/details
+
+COPY details.rb /opt/microservices/
 
 # Cambiar directorio al de details
-
+WORKDIR /opt/microservices
 
 # Lanzar app en el puerto 9080
 CMD ["ruby", "details.rb", "9080"]
