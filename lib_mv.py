@@ -55,17 +55,17 @@ def mv_docker_compose (version, ratings, star):
 
       services:
         g27-productpage:
-          image: g27/product-page:latest
+          image: "g27/product-page:latest"
           ports:
             - 9080:9080
 
         g27-details:
-          image: g27/details:latest
+          image: "g27/details:latest"
           ports:
             - 9080
 
         g27-reviews:
-          image: g27/reviews-{version}:latest
+          image: "g27/reviews-{version}:latest"
           ports:
             - 9080
           environment:
@@ -74,7 +74,7 @@ def mv_docker_compose (version, ratings, star):
             - STAR_COLOR={star}
 
         g27-ratings:
-          image: g27/ratings:latest
+          image: "g27/ratings:latest"
           ports:
             - 9080
       """
