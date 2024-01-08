@@ -13,7 +13,7 @@ RUN apt-get install -y git
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de productpage
-WORKDIR /practica_creativa2/app/bookinfo/src/productpage
+WORKDIR /app/bookinfo/src/productpage
 
 # Instalar requerimientos
 RUN pip3 install -r requirements.txt
