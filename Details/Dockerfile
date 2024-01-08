@@ -15,8 +15,8 @@ RUN apt-get update \
     && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
 
-# Cambiar directorio al de /ratings
-WORKDIR /practica_creativa2/bookinfo/src/ratings
+# Cambiar directorio al de /details
+WORKDIR /practica_creativa2/bookinfo/src/details
 
 # Copiar details.rb
 RUN cp details.rb /opt/microservices
