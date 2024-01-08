@@ -17,7 +17,7 @@ RUN apt-get update \
 WORKDIR /practica_creativa2/bookinfo/src/productpage/
 
 # Lanzar app en el puerto 9080
-CMD ["python3", "productpage.py", "9080"]
+CMD ["python", "productpage.py", "9080"]
 
 # Indicar que se ha instalado correctamente
 RUN echo "La imagen Docker de PRODUCT PAGE se ha instalado correctamente"
