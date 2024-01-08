@@ -13,10 +13,9 @@ ENV ENABLE_EXTERNAL_BOOK_SERVICE true
 # Actualizar sistema e instalar dependencias
 RUN apt-get update \
     && apt-get install -y git \
-    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2\
-    && mkdir /opt/microservices \
-    && cp practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/details.rb \
-    && ls -al /opt/microservices
+    && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
+
+COPY practica_creativa2/bookinfo/src/details/details.rb /opt/microservices/
 
 # Cambiar directorio al de details
 WORKDIR /opt/microservices
