@@ -15,11 +15,12 @@ WORKDIR /practica_creativa2/bookinfo/src/ratings/
 
 # Copiar package.json y ratings.json, e instalar app
 RUN cp package.json /opt/microservices \
-    && cp ratings.js /opt/microservices \
-    && npm install
+    && cp ratings.js /opt/microservices
 
 # Cambiar directorio al de /opt/microservices
 WORKDIR /opt/microservices
+
+RUN npm install
 
 # Lanzar app en el puerto 9080
 CMD ["node", "ratings.js", "9080"]
