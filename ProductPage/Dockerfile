@@ -10,11 +10,12 @@ WORKDIR /home
 RUN apt-get update \
     && apt-get install -y git \
     && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2 \
-    && apt-get install -y python3-pip \
-    && pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
+    && apt-get install -y python3-pip
 
 # Cambiar directorio al de productpage
 WORKDIR /practica_creativa2/bookinfo/src/productpage/
+
+RUN pip3 install -r requirements.txt
 
 # Lanzar app en el puerto 9080
 CMD ["python3", "productpage.py", "9080"]
