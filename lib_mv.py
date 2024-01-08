@@ -35,6 +35,9 @@ def mv_docker_compose (version, ratings, star):
   #Crear la imagen de Details
   log.debug("CONSTRUIR DETAILS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details', './Details'])
+  #Crear la imagen de Ratings
+  log.debug("CONSTRUIR RATINGS")
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings', './Ratings'])
   #Crear la imagen de Reviews
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews/reviews-wlpcfg')
@@ -45,10 +48,6 @@ def mv_docker_compose (version, ratings, star):
   
   #Cambiar al directorio raíz
   os.chdir(raiz)
-  #Crear la imagen de Ratings
-  log.debug("CONSTRUIR RATINGS")
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings', './Ratings'])
-
   #Crear el contenido del fichero docker-compose.yaml
   log.debug("CONSTRUIR DOCKER_COMPOSE")
   contenido_docker_compose = f"""
