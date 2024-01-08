@@ -19,8 +19,8 @@ def mv_pesada (puerto):
 # Despliegue de la aplicación mediante Docker
 def mv_docker ():
   log.debug("mv_docker ")
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page', '.'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-p', '9080:9080', '-d', 'g27/product-page'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page-mono', '.'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page-mono', '-p', '9080:9080', '-d', 'g27/product-page-mono'])
 
 # Despliegue de la aplicación mediante Docker-Compose
 def mv_docker_compose (version, ratings, star):
