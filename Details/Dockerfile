@@ -18,7 +18,7 @@ RUN apt-get update \
     && ls -al /opt/microservices
 
 # Cambiar directorio al de details
-WORKDIR /practica_creativa2/bookinfo/src/details/
+WORKDIR /opt/microservices
 
 # Lanzar app en el puerto 9080
 CMD ["ruby", "details.rb", "9080"]
