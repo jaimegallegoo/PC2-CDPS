@@ -4,7 +4,7 @@ FROM python:3.7.7-slim
 EXPOSE 9080
 
 # Cambiar directorio al de home
-WORKDIR /home
+# WORKDIR /home
 
 # Actualizar sistema e instalar dependencias
 RUN apt-get update \
@@ -14,7 +14,7 @@ RUN apt-get update \
     && pip3 install -r practica_creativa2/bookinfo/src/productpage/requirements.txt
 
 # Cambiar directorio al de productpage
-WORKDIR /practica_creativa2/bookinfo/src/productpage/
+WORKDIR /bookinfo/src/productpage/
 
 # Lanzar app en el puerto 9080
 CMD ["python3", "productpage.py", "9080"]
