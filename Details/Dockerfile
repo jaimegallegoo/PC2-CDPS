@@ -4,7 +4,7 @@ FROM ruby:2.7.1-slim
 EXPOSE 9080
 
 # Cambiar directorio al de home
-WORKDIR /home
+WORKDIR /opt/microservices
 
 # Especificar variables de entorno
 ENV SERVICE_VERSION v1
