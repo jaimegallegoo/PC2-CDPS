@@ -13,13 +13,14 @@ RUN apt-get update && apt-get install -y git \
 # Cambiar directorio al de /ratings
 WORKDIR /practica_creativa2/bookinfo/src/ratings/
 
-# Copiar package.json y ratings.json, e instalar app
+# Copiar package.json y ratings.json
 RUN cp package.json /opt/microservices \
     && cp ratings.js /opt/microservices
 
 # Cambiar directorio al de /opt/microservices
 WORKDIR /opt/microservices
 
+# Instalar app
 RUN npm install
 
 # Lanzar app en el puerto 9080
