@@ -98,3 +98,9 @@ def mv_kubernetes(cluster, version):
   subprocess.call(['kubectl', 'get', 'pods'])
   #Aquí ves la IP EXTERNA con la que tienes que consultar la aplicación
   subprocess.call(['kubectl', 'get', 'services'])
+
+def destroy_cluster():
+  #Destruir el escenario de la parte 4
+  subprocess.call(['kubectl', 'delete', '--all', 'pods'])
+  subprocess.call(['kubectl', 'delete', '--all', 'deployments'])
+  subprocess.call(['kubectl', 'delete', '--all', 'services'])
