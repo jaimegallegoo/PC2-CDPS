@@ -41,7 +41,8 @@ def main():
 
     elif orden == "parte4":
         cluster = sys.argv[2]
-        mv_kubernetes(cluster)
+        version = sys.argv[3]
+        mv_kubernetes(cluster, version)
 
     else:
         print(f"Orden no reconocida: {orden}")
