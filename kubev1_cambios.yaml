@@ -199,10 +199,7 @@ spec:
     spec:
       containers:
       - name: ratings
-        image: cdps2021equipo37/ratings
-        env: 
-        - name: SERVICE_VERSION
-          value: "v3"
+        image: g27/ratings
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
