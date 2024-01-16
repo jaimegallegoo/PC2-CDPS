@@ -95,3 +95,10 @@ def mv_kubernetes(cluster):
   subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1-a'])
   #gcloud container clusters resize cluster-1 --num-nodes=5 --zone=europe-southwest1-a
   #gcloud container clusters update cluster-1 --no-enable-autoscaling --zone=europe-southwest1-a
+  subprocess.call(['gcloud', 'auth', 'configure-docker', '-q'])
+  subprocess.call(['kubectl', 'apply', '-f', './kubev1.yaml'])
+  #subprocess.call(['kubectl', 'apply', '-f', './kubev2.yaml']) 
+  #subprocess.call(['kubectl', 'apply', '-f', './kubev3.yaml'])
+  subprocess.call(['kubectl', 'get', 'pods'])
+  #Aquí ves la IP EXTERNA con la que tienes que consultar la aplicación
+  subprocess.call(['kubectl', 'get', 'services'])
