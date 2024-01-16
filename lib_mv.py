@@ -91,8 +91,8 @@ def mv_docker_compose (version, ratings, star):
 def mv_kubernetes(cluster):
   log.debug("mv_kubernetes ")
   #Configurar el cluster
-  subprocess.call(['gcloud', 'container', 'clusters', 'resize', f'{cluster}', '--num-nodes=5', '--zone=europe-southwest1-a'])
-  subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1-a'])
+  subprocess.call(['gcloud', 'container', 'clusters', 'resize', f'{cluster}', '--num-nodes=5', '--zone=europe-southwest1'])
+  subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1'])
   #gcloud container clusters resize cluster-1 --num-nodes=5 --zone=europe-southwest1-a
   #gcloud container clusters update cluster-1 --no-enable-autoscaling --zone=europe-southwest1-a
   subprocess.call(['gcloud', 'auth', 'configure-docker', '-q'])
