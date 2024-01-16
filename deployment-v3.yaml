@@ -94,7 +94,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reviews-v1
+  name: reviews-v3
   labels:
     app: reviews
     version: v1
