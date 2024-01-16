@@ -3,7 +3,7 @@
 # Marta Volpini López
 
 import logging, sys, os
-from lib_mv import mv_pesada, mv_docker, mv_docker_compose
+from lib_mv import mv_pesada, mv_docker, mv_docker_compose, mv_kubernetes
 
 def init_log():
     # Creacion y configuracion del logger
@@ -38,6 +38,10 @@ def main():
             mv_docker_compose("v2", True, "black")
         else:
             mv_docker_compose("v3", True, "red")
+
+    elif orden == "parte4":
+        cluster = sys.argv[2]
+        mv_kubernetes(cluster)
 
     else:
         print(f"Orden no reconocida: {orden}")
