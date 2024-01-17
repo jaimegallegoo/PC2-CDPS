@@ -181,7 +181,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ratings
+  name: ratings-v1
   labels:
     app: ratings
     version: v1
@@ -202,7 +202,7 @@ spec:
         image: g27/ratings
         env: 
         - name: SERVICE_VERSION
-          value: "v1"
+          value: "v3"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
