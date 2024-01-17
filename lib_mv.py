@@ -55,12 +55,12 @@ def mv_docker_compose (version, ratings, star):
 
       services:
         g27-productpage:
-          image: "grupo27cdps/product-page"
+          image: "g27/product-page:latest"
           ports:
             - 9080:9080
 
         g27-details:
-          image: "grupo27cdps/details"
+          image: "g27/details:latest"
           ports:
             - 9080
           environment:
@@ -68,7 +68,7 @@ def mv_docker_compose (version, ratings, star):
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
 
         g27-reviews:
-          image: "grupo27cdps/reviews-{version}"
+          image: "g27/reviews-{version}:latest"
           ports:
             - 9080
           environment:
@@ -77,7 +77,7 @@ def mv_docker_compose (version, ratings, star):
             - STAR_COLOR={star}
 
         g27-ratings:
-          image: "grupo27cdps/ratings"
+          image: "g27/ratings:latest"
           ports:
             - 9080
       """
