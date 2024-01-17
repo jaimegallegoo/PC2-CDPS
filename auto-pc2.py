@@ -3,7 +3,7 @@
 # Marta Volpini López
 
 import logging, sys, os
-from lib_mv import mv_pesada, mv_docker, mv_docker_compose, mv_kubernetes, destroy_cluster
+from lib_mv import mv_pesada, mv_docker, mv_docker_compose, mv_kubernetes, destroy_cluster, config_cluster
 
 def init_log():
     # Creacion y configuracion del logger
@@ -42,8 +42,11 @@ def main():
     elif orden == "parte4":
         if sys.argv[2] != "destruir":
             cluster = sys.argv[2]
-            version = sys.argv[3]
-            mv_kubernetes(cluster, version)
+            if sys.argv[3] == "configurar":
+                config_cluster(cluster)
+            else:
+                version = sys.argv[3]
+                mv_kubernetes(cluster, version)
         else:
             destroy_cluster()
 

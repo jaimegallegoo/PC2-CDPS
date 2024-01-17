@@ -88,12 +88,15 @@ def mv_docker_compose (version, ratings, star):
   #subprocess.call(['sudo', 'docker-compose', '--env-file', 'envs_v1.env', 'up'])
   #subprocess.call(['sudo', 'docker-compose', 'up', '--build'])
 
-def mv_kubernetes(cluster, version):
-  log.debug("mv_kubernetes ")
+def config_cluster(cluster):
   #Configurar el cluster
   subprocess.call(['gcloud', 'container', 'clusters', 'resize', f'{cluster}', '--num-nodes=5', '--zone=europe-southwest1'])
   subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1'])
   subprocess.call(['gcloud', 'auth', 'configure-docker', '-q'])
+
+def mv_kubernetes(cluster, version):
+  log.debug("mv_kubernetes ")
+  #Desplegar el escenario
   subprocess.call(['kubectl', 'apply', '-f', f'./deployment-{version}.yaml'])
   subprocess.call(['kubectl', 'get', 'pods'])
   #Aquí ves la IP EXTERNA con la que tienes que consultar la aplicación
