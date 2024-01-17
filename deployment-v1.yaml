@@ -144,6 +144,8 @@ spec:
           value: "v1"
         - name: ENABLE_RATINGS
           value: "false"
+        - name: STAR_COLOR
+          value: "red"
         ports:
         - containerPort: 9080
         volumeMounts:
