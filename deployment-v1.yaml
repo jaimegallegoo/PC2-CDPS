@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: product-page
-        image: g27/product-page
+        image: g27/product-page-micro
         env:
         - name: GROUP_NUMBER
           value: "GRUPO27"
