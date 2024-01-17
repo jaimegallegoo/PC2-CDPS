@@ -38,9 +38,6 @@ spec:
       containers:
       - name: product-page
         image: g27/product-page
-        env:
-        - name: GROUP_NUMBER
-          value: "GRUPO27"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
