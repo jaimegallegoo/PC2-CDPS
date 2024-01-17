@@ -32,21 +32,21 @@ def mv_docker_compose (version, ratings, star):
   #Crear la imagen de ProductPage
   log.debug("CONSTRUIR PRODUCT_PAGE")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page:latest', './ProductPage'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-p', '9080', '-it', 'g27/product-page:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-p', '9080', '-d', '-it', 'g27/product-page:latest'])
   #Crear la imagen de Details
   log.debug("CONSTRUIR DETAILS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details:latest', './Details'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-details', '-p', '9080', '-it', 'g27/details:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-details', '-p', '9080', '-d', '-it', 'g27/details:latest'])
   #Crear la imagen de Ratings
   log.debug("CONSTRUIR RATINGS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings:latest', './Ratings'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-ratings', '-p', '9080', '-it', 'g27/ratings:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-ratings', '-p', '9080', '-d', '-it', 'g27/ratings:latest'])
   #Crear la imagen de Reviews
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews:latest', './reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-reviews', '-p', '9080', '-it', 'g27/reviews:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-reviews', '-p', '9080', '-d', '-it', 'g27/reviews:latest'])
   
   #Cambiar al directorio raíz
   os.chdir(raiz)
