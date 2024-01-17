@@ -117,10 +117,10 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reviews-v3
+  name: reviews-v1
   labels:
     app: reviews
-    version: v3
+    version: v1
 spec:
   replicas: 1
   selector:
