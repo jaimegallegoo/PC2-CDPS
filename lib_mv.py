@@ -42,9 +42,9 @@ def mv_docker_compose (version, ratings, star):
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
-  subprocess.call(['sudo', 'docker', 'build', '--build-arg', 'service_version=v1', '--build-arg', 'enable_ratings=false', '-t', 'g27/reviews-v1:latest', './reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'build', '--build-arg', 'service_version=v2', '--build-arg', 'enable_ratings=true', '--build-arg', 'star_color=black', '-t', 'g27/reviews-v2:latest', './reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'build', '--build-arg', 'service_version=v3', '--build-arg', 'enable_ratings=true', '--build-arg', 'star_color=red', '-t', 'g27/reviews-v3:latest', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews-v1:latest', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews-v2:latest', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews-v3:latest', './reviews-wlpcfg'])
   
   #Cambiar al directorio raíz
   os.chdir(raiz)
