@@ -45,7 +45,7 @@ def mv_docker_compose (version, ratings, star):
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews:latest', '-f', 'Dockerfile', '.'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews:latest', './reviews-wlpcfg'])
   subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-reviews', '-p', '9080', '-d', '-it', 'g27/reviews:latest'])
   
   #Cambiar al directorio raíz
