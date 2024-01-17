@@ -82,6 +82,11 @@ spec:
       containers:
       - name: details
         image: g27/details
+        env:
+        - name: SERVICE_VERSION
+          value: "v1"
+        - name: ENABLE_EXTERNAL_BOOK_SERVICE
+          value: "true"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -175,6 +180,9 @@ spec:
       containers:
       - name: ratings
         image: g27/ratings
+        env: 
+        - name: SERVICE_VERSION
+          value: "v1"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
