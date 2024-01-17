@@ -91,6 +91,9 @@ def mv_docker_compose (version, ratings, star):
   #subprocess.call(['sudo', 'docker-compose', 'up', '-d'])
   #subprocess.call(['sudo', 'docker-compose', 'build'])
   #subprocess.call(['sudo', 'docker-compose', 'up'])
+  subprocess.call(['sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'])
+  subprocess.call(['sudo chmod +x /usr/local/bin/docker-compose'])
+  subprocess.call(['sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose'])
   subprocess.call(['sudo', 'docker-compose', '--env-file', 'envs_v1.env', 'up'])
   #subprocess.call(['sudo', 'docker-compose', 'up', '--build'])
 
