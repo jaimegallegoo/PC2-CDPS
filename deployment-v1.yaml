@@ -117,21 +117,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reviews
+  name: reviews-v3
   labels:
     app: reviews
-    version: v1
+    version: v3
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: reviews
-      version: v1
+      version: v3
   template:
     metadata:
       labels:
         app: reviews
-        version: v1
+        version: v3
     spec:
       containers:
       - name: reviews
