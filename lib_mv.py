@@ -63,6 +63,9 @@ def mv_docker_compose (version, ratings, star):
           image: "g27/details:latest"
           ports:
             - 9080
+          environment:
+            - SERVICE_VERSION=v1
+            - ENABLE_EXTERNAL_BOOK_SERVICE=true
 
         g27-reviews:
           image: "g27/reviews-{version}:latest"
