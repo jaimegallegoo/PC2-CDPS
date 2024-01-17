@@ -42,9 +42,7 @@ def mv_docker_compose (version, ratings, star):
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews-v1:latest', './reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews-v2:latest', './reviews-wlpcfg'])
-  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews-v3:latest', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews:latest', './reviews-wlpcfg'])
   
   #Cambiar al directorio raíz
   os.chdir(raiz)
@@ -68,7 +66,7 @@ def mv_docker_compose (version, ratings, star):
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
 
         g27-reviews:
-          image: "g27/reviews-{version}:latest"
+          image: "g27/reviews:latest"
           ports:
             - 9080
           environment:
