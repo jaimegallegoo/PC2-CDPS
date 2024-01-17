@@ -9,6 +9,7 @@ metadata:
     app: product-page
     service: product-page
 spec:
+  type: LoadBalancer
   ports:
   - port: 9080
     name: http
