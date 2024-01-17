@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
       - name: reviews
-        image: g27/reviews-v1
+        image: g27/reviews
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR
