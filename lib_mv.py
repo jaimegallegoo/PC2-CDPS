@@ -94,7 +94,7 @@ def config_cluster(cluster):
   subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1'])
   subprocess.call(['gcloud', 'auth', 'configure-docker', '-q'])
 
-def mv_kubernetes(cluster, version):
+def mv_kubernetes(version):
   log.debug("mv_kubernetes ")
   #Desplegar el escenario
   subprocess.call(['kubectl', 'apply', '-f', f'./deployment-{version}.yaml'])

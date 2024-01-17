@@ -46,7 +46,7 @@ def main():
                 config_cluster(cluster)
             else:
                 version = sys.argv[3]
-                mv_kubernetes(cluster, version)
+                mv_kubernetes(version)
         else:
             destroy_cluster()
 
