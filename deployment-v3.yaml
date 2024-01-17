@@ -1,5 +1,5 @@
 ##################################################################################################
-# ProductPage service
+# Productpage service
 ##################################################################################################
 apiVersion: v1
 kind: Service
@@ -9,6 +9,7 @@ metadata:
     app: product-page
     service: product-page
 spec:
+  type: LoadBalancer
   ports:
   - port: 9080
     name: http
@@ -36,7 +37,10 @@ spec:
     spec:
       containers:
       - name: product-page
-        image: g27/product-page
+        image: grupo27cdps/product-page
+        env:
+        - name: GROUP_NUMBER
+          value: "GRUPO27"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -81,7 +85,12 @@ spec:
     spec:
       containers:
       - name: details
-        image: g27/details
+        image: grupo27cdps/details
+        env:
+        - name: SERVICE_VERSION
+          value: "v1"
+        - name: ENABLE_EXTERNAL_BOOK_SERVICE
+          value: "true"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -89,7 +98,7 @@ spec:
           runAsUser: 1000
 ---
 ##################################################################################################
-# Reviews service V3
+# Reviews service
 ##################################################################################################
 apiVersion: v1
 kind: Service
@@ -111,31 +120,31 @@ metadata:
   name: reviews-v3
   labels:
     app: reviews
-    version: v1
+    version: v3
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: reviews
-      version: v1
+      version: v3
   template:
     metadata:
       labels:
         app: reviews
-        version: v1
+        version: v3
     spec:
       containers:
       - name: reviews
-        image: g27/reviews-v3
+        image: grupo27cdps/reviews-v3
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR
           value: "/tmp/logs"
         - name: SERVICE_VERSION
-          value: "V3"
+          value: "v1"
         - name: ENABLE_RATINGS
           value: "true"
-          - name: STAR_COLOR
+        - name: STAR_COLOR
           value: "red"
         ports:
         - containerPort: 9080
@@ -190,7 +199,10 @@ spec:
     spec:
       containers:
       - name: ratings
-        image: g27/ratings
+        image: grupo27cdps/ratings
+        env: 
+        - name: SERVICE_VERSION
+          value: "v3"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
