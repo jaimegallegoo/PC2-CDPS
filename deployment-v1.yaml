@@ -37,10 +37,10 @@ spec:
     spec:
       containers:
       - name: product-page
-        image: cdps2021equipo37/product-page-micro
+        image: cdps2021equipo27/product-page-micro
         env:
         - name: GROUP_NUMBER
-          value: "GRUPO37"
+          value: "GRUPO27"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -85,7 +85,7 @@ spec:
     spec:
       containers:
       - name: details
-        image: cdps2021equipo37/details
+        image: cdps2021equipo27/details
         env:
         - name: SERVICE_VERSION
           value: "v1"
@@ -135,7 +135,7 @@ spec:
     spec:
       containers:
       - name: reviews
-        image: cdps2021equipo37/reviews
+        image: cdps2021equipo27/reviews
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR
@@ -199,7 +199,7 @@ spec:
     spec:
       containers:
       - name: ratings
-        image: cdps2021equipo37/ratings
+        image: cdps2021equipo27/ratings
         env: 
         - name: SERVICE_VERSION
           value: "v3"
