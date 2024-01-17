@@ -1,5 +1,5 @@
 ##################################################################################################
-# ProductPage service
+# Productpage service
 ##################################################################################################
 apiVersion: v1
 kind: Service
@@ -9,6 +9,7 @@ metadata:
     app: product-page
     service: product-page
 spec:
+  type: LoadBalancer
   ports:
   - port: 9080
     name: http
@@ -36,15 +37,15 @@ spec:
     spec:
       containers:
       - name: product-page
-        image: g27/product-page
+        image: cdps2021equipo37/product-page-micro
         env:
         - name: GROUP_NUMBER
-          value: "GRUPO27"
+          value: "GRUPO37"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
-        securityContext:
-          runAsUser: 1000
+        #securityContext:
+         # runAsUser: 1000
 ---
 ##################################################################################################
 # Details service
@@ -84,7 +85,7 @@ spec:
     spec:
       containers:
       - name: details
-        image: g27/details
+        image: cdps2021equipo37/details
         env:
         - name: SERVICE_VERSION
           value: "v1"
@@ -97,38 +98,54 @@ spec:
           runAsUser: 1000
 ---
 ##################################################################################################
-# Reviews service V1
+# Reviews service
 ##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: reviews
+  labels:
+    app: reviews
+    service: reviews
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: reviews
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reviews-v1
+  name: reviews-v3
   labels:
     app: reviews
-    version: v1
+    version: v3
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: reviews
-      version: v1
+      version: v3
   template:
     metadata:
       labels:
         app: reviews
-        version: v1
+        version: v3
     spec:
       containers:
       - name: reviews
-        image: g27/reviews-v1
+        image: cdps2021equipo37/reviews
         imagePullPolicy: IfNotPresent
         env:
         - name: LOG_DIR
           value: "/tmp/logs"
         - name: SERVICE_VERSION
-          value: "V1"
+          value: "v1"
         - name: ENABLE_RATINGS
           value: "false"
+        - name: STAR_COLOR
+          value: "red"
         ports:
         - containerPort: 9080
         volumeMounts:
@@ -182,10 +199,10 @@ spec:
     spec:
       containers:
       - name: ratings
-        image: g27/ratings
+        image: cdps2021equipo37/ratings
         env: 
         - name: SERVICE_VERSION
-          value: "v1"
+          value: "v3"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
