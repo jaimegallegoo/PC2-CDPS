@@ -68,7 +68,7 @@ def mv_docker_compose (version, ratings, star):
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
 
         g27-reviews:
-          image: "grupo27cdps/reviews-{version}"
+          image: "g27/reviews-{version}:latest"
           ports:
             - 9080
           environment:
@@ -87,7 +87,7 @@ def mv_docker_compose (version, ratings, star):
 
   #Crear los contenedores
   #subprocess.call(['sudo', 'docker-compose', 'up', '-d'])
-  subprocess.call(['sudo', 'docker-compose', 'build'])
+  #subprocess.call(['sudo', 'docker-compose', 'build'])
   subprocess.call(['sudo', 'docker-compose', 'up'])
   #subprocess.call(['sudo', 'docker-compose', '--env-file', 'envs_v1.env', 'up'])
   #subprocess.call(['sudo', 'docker-compose', 'up', '--build'])
