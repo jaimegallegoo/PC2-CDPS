@@ -26,9 +26,11 @@ def main():
     if orden == "parte1":
         puerto = sys.argv[2]
         mv_pesada(puerto)
+    #python3 auto-pc2.py parte1 9080
 
     elif orden == "parte2":
         mv_docker()
+    #python3 auto-pc2.py parte2
 
     elif orden == "parte3":
         version = sys.argv[2]
@@ -38,6 +40,9 @@ def main():
             mv_docker_compose("v2", True, "black")
         else:
             mv_docker_compose("v3", True, "red")
+    #python3 auto-pc2.py parte3 v1
+    #python3 auto-pc2.py parte3 v2
+    #python3 auto-pc2.py parte3 v3
 
     elif orden == "parte4":
         if sys.argv[2] != "destruir":
@@ -49,6 +54,11 @@ def main():
                 mv_kubernetes(version)
         else:
             destroy_cluster()
+    #python3 auto-pc2.py parte4 nombre-cluster configurar
+    #python3 auto-pc2.py parte4 nombre-cluster v1     
+    #python3 auto-pc2.py parte4 nombre-cluster v2
+    #python3 auto-pc2.py parte4 nombre-cluster v3 
+    #python3 auto-pc2.py parte4 destruir
 
     else:
         print(f"Orden no reconocida: {orden}")
