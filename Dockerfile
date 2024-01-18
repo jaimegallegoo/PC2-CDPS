@@ -9,24 +9,6 @@ ENV GROUP_NUMBER=UNDEFINED
 # Cambiar directorio al de practica_creativa2
 WORKDIR /home
 
-# Actualizar sistema
-RUN apt-get update -y
-
-#Instalar pip
-RUN apt-get install -y python3-pip
-
-#Instalar github
-RUN apt-get install -y git
-
-# Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
-
-# Cambiar directorio al de productpage
-RUN cd practica_creativa2/bookinfo/src/productpage/
-
-# Instalar requerimientos
-RUN pip3 install -r requirements.txt
-
 RUN apt-get update -y \
         && apt-get install -y python3-pip \
         && apt-get install -y git \
