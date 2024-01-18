@@ -28,7 +28,8 @@ RUN pip3 install -r requirements.txt
 WORKDIR /home/practica_creativa2
 
 # Cambiar el título de la app y lanzar app en el puerto 9080
-CMD python3 bookinfo/src/productpage/productpage_monolith.py 9080
+CMD find ./ -type f -exec sed -i "s/Simple Bookstore App/Simple Bookstore App($GROUP_NUMBER)/g" {} \; \
+    && python3 bookinfo/src/productpage/productpage_monolith.py 9080
 
 # Indicar que se ha instalado correctamente
 RUN echo "La imagen Docker se ha instalado correctamente"
