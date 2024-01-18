@@ -19,7 +19,7 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y git
 
 # Clonar repositorio de la app
-RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
+RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git
 
 # Cambiar directorio al de productpage
 RUN cd practica_creativa2/bookinfo/src/productpage/
