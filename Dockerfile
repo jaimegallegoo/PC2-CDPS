@@ -22,13 +22,10 @@ RUN apt-get install -y git
 RUN git clone https://github.com/CDPS-ETSIT/practica_creativa2.git /practica_creativa2
 
 # Cambiar directorio al de productpage
-WORKDIR /practica_creativa2/bookinfo/src/productpage
+RUN cd practica_creativa2/bookinfo/src/productpage/
 
 # Instalar requerimientos
 RUN pip3 install -r requirements.txt
-
-# Cambiar directorio al de practica_creativa2
-WORKDIR /home
 
 # Cambiar el título de la app y lanzar app en el puerto 9080
 CMD find ./ -type f -exec sed -i "s/Simple Bookstore App/Simple Bookstore App($GROUP_NUMBER)/g" {} \; \
