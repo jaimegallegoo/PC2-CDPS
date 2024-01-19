@@ -3,12 +3,13 @@ FROM debian:10
 # Indicar el puerto accesible
 EXPOSE 9080
 
-#Indicar la variable de entorno
+#Indicar la variable de entorno GROUP_NUMBER
 ENV GROUP_NUMBER=UNDEFINED
 
-# Cambiar directorio al de practica_creativa2
+# Cambiar directorio a /home
 WORKDIR /home
 
+# Ejecutar comandos de instalación
 RUN apt-get update -y \
         && apt-get install -y python3-pip \
         && apt-get install -y git \
