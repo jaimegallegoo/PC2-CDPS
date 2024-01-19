@@ -30,7 +30,7 @@ def main():
 
     elif orden == "parte2":
         if sys.argv[2] != "destruir":
-           mv_docker()
+            mv_docker()
         else:
             docker_destroy()
     #python3 auto-pc2.py parte2
