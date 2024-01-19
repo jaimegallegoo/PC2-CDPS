@@ -29,10 +29,10 @@ def main():
     #python3 auto-pc2.py parte1 9080
 
     elif orden == "parte2":
-        if (sys.argv[2]) and (sys.argv[2] == "destruir"):
-            docker_destroy()
-        else:
+        if sys.argv[2] == "start":
             mv_docker()
+        elif sys.argv[2] == "destruir":
+            docker_destroy()
     #python3 auto-pc2.py parte2
 
     elif orden == "parte3":
