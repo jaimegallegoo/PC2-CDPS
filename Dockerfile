@@ -14,11 +14,11 @@ RUN apt-get update -y \
         && apt-get install -y git \
         && git clone https://github.com/CDPS-ETSIT/practica_creativa2.git \
         && cd practica_creativa2/bookinfo/src/productpage/ \
-        && pip3 install -r requirements.txt
+        && pip3 install -r requirements.txt \
+        && grep -rl "Simple Bookstore App" ./ | xargs awk -i inplace '{gsub(/Simple Bookstore App/, "$GROUP_NUMBER")}1'
 
 # Cambiar el título de la app y lanzar app en el puerto 9080
-CMD find ./ -type f -exec sed -i "s/Simple Bookstore App/Simple Bookstore App($GROUP_NUMBER)/g" {} \; \
-    && python3 practica_creativa2/bookinfo/src/productpage/productpage_monolith.py 9080
+CMD python3 practica_creativa2/bookinfo/src/productpage/productpage_monolith.py 9080
 
 # Indicar que se ha instalado correctamente
 RUN echo "La imagen Docker se ha instalado correctamente"
