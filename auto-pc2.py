@@ -33,7 +33,8 @@ def main():
             mv_docker()
         elif sys.argv[2] == "destruir":
             docker_destroy()
-    #python3 auto-pc2.py parte2
+    #python3 auto-pc2.py parte2 start
+    #python3 auto-pc2.py parte2 destruir
 
     elif orden == "parte3":
         version = sys.argv[2]
