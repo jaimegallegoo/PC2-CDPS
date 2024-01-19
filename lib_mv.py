@@ -22,6 +22,10 @@ def mv_docker ():
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page-mono', '.'])
   subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page-mono', '-p', '9080:9080', '-e', 'GROUP_NUMBER=GRUPO27', 'g27/product-page-mono'])
 
+# Eliminar todas las imágenes y contenedores Docker
+def docker_destroy():
+  subprocess.call(['sudo docker stop $(sudo docker ps -aq) && sudo docker rm $(sudo docker ps -aq) && sudo docker rmi --force $(sudo docker images -q)'])
+
 # Despliegue de la aplicación mediante Docker-Compose
 def mv_docker_compose (version, ratings, star):
   log.debug("mv_docker_compose ")
