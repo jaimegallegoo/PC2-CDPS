@@ -17,7 +17,7 @@ RUN apt-get update -y \
     && pip3 install -r requirements.txt
 
 # Cambiar el título de la app y lanzar app en el puerto 9080
-RUN grep -rl "Simple Bookstore App" ./ | xargs awk -i inplace '{gsub(/Simple Bookstore App/, "Simple Bookstore App($GROUP_NUMBER)")}1' \
+RUN grep -rl "Simple Bookstore App" ./ | xargs sed -i "s/Simple Bookstore App/Simple Bookstore App(\$GROUP_NUMBER)/g" \
     && python3 practica_creativa2/bookinfo/src/productpage/productpage_monolith.py 9080
 
 # Indicar que se ha instalado correctamente
