@@ -6,7 +6,7 @@ EXPOSE 9080
 #Indicar la variable de entorno GROUP_NUMBER
 ENV GROUP_NUMBER=UNDEFINED
 
-# Cambiar directorio a /home
+# Cambiar directorio al de home
 WORKDIR /home
 
 # Ejecutar comandos de instalación

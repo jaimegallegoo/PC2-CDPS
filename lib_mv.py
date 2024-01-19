@@ -67,6 +67,8 @@ def mv_docker_compose (version, ratings, star):
           image: "g27/product-page:latest"
           ports:
             - 9080:9080
+          environment:
+            - GROUP_NUMBER=GRUPO27
 
         g27-details:
           image: "g27/details:latest"
