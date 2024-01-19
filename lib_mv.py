@@ -15,6 +15,7 @@ def mv_pesada (puerto):
   os.chdir('practica_creativa2/bookinfo/src/productpage')
   subprocess.call(['pip3', 'install', '-r', 'requirements.txt'])
   subprocess.call(['python3', 'productpage_monolith.py', f'{puerto}'])
+  subprocess.run(['find', './', '-type', 'f', '-exec', 'sed', '-i', f's/Simple Bookstore App/GRUPO27/g', '{}', '\;'])
 
 # Despliegue de la aplicación mediante Docker
 def mv_docker ():
