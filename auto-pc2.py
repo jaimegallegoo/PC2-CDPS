@@ -32,7 +32,7 @@ def main():
         if sys.argv[2] != "destruir":
            mv_docker()
         else:
-            destroy_cluster()
+            docker_destroy()
     #python3 auto-pc2.py parte2
 
     elif orden == "parte3":
