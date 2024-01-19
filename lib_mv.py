@@ -24,9 +24,9 @@ def mv_docker ():
 
 # Eliminar todas las imágenes y contenedores Docker
 def docker_destroy():
-  subprocess.call(['sudo docker stop $(sudo docker ps -aq)'])
-  subprocess.call(['sudo docker rm $(sudo docker ps -aq)'])
-  subprocess.call(['sudo docker rmi --force $(sudo docker images -q)'])
+  subprocess.call(['sudo docker stop $(sudo docker ps -aq)'], shell=True)
+  subprocess.call(['sudo docker rm $(sudo docker ps -aq)'], shell=True)
+  subprocess.call(['sudo docker rmi --force $(sudo docker images -q)'], shell=True)
 
 # Despliegue de la aplicación mediante Docker-Compose
 def mv_docker_compose (version, ratings, star):
