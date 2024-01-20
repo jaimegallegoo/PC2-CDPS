@@ -73,7 +73,7 @@ def mv_docker_compose (version, ratings, star):
         g27-details:
           image: "g27/details:latest"
           ports:
-            - 9080
+            - 9081:9080
           environment:
             - SERVICE_VERSION=v1
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
@@ -81,7 +81,7 @@ def mv_docker_compose (version, ratings, star):
         g27-reviews:
           image: "g27/reviews:latest"
           ports:
-            - 9080
+            - 9082:9080
           environment:
             - SERVICE_VERSION={version}
             - ENABLE_RATINGS={ratings}
@@ -90,7 +90,7 @@ def mv_docker_compose (version, ratings, star):
         g27-ratings:
           image: "g27/ratings:latest"
           ports:
-            - 9080
+            - 9083:9080
       """
   #Escribir el contenido en el fichero docker-compose.yaml
   with open('docker-compose.yaml', 'w') as file:
