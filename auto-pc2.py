@@ -2,8 +2,8 @@
 # Jaime Gallego Chillón
 # Marta Volpini López
 
-import logging, sys, subprocess, json
-from lib_mv import MV, Red
+import logging, sys, os
+from lib_mv import mv_pesada, mv_docker, mv_docker_compose, mv_kubernetes, destroy_cluster, config_cluster, docker_destroy, info_cluster
 
 def init_log():
     # Creacion y configuracion del logger
@@ -18,93 +18,59 @@ def init_log():
 def pause():
     programPause = input("Press the <ENTER> key to continue...")
 
-def load_configuration():
-    # Cargar el contenido de auto-p2.json
-    with open('auto-p2.json') as config_file:
-            config_data = json.load(config_file)
-            return config_data["num_serv"]
-
 def main():
-    # Sacar el número de servidores del fichero auto-p2.json
-    num_servidores = load_configuration()
-        
-    # Crear las clases de las MV
-    c1 = MV("c1")
-    host = MV("host")
-    lb = MV("lb")
-    red = Red("red")
 
     # Establecer la posición de la orden en la línea de argumentos
     orden = sys.argv[1]
 
-    if orden == "crear":
-        # Crear la red
-        red.crear_red()
-        # Crear los servidores
-        for i in range(num_servidores):
-            s = MV(f's{i + 1}')
-            s.crear_mv("cdps-vm-base-pc1.qcow2", "LAN2", False)
-        # Crear el resto de máquinas virtuales
-        c1.crear_mv("cdps-vm-base-pc1.qcow2", "LAN1", False)
-        host.crear_mv("cdps-vm-base-pc1.qcow2", "LAN1", False)
-        lb.crear_mv("cdps-vm-base-pc1.qcow2", "null", True)
+    if orden == "parte1":
+        puerto = sys.argv[2]
+        mv_pesada(puerto)
+    #python3 auto-pc2.py parte1 9080
 
-    elif orden == "arrancar":
-        if len(sys.argv) < 3:
-            # Arrancar los servidores
-            for i in range(num_servidores):
-                s = MV(f's{i + 1}')
-                s.arrancar_mv()
-                s.mostrar_consola_mv()
-            # Arrancar el resto de máquinas virtuales
-            c1.arrancar_mv()
-            c1.mostrar_consola_mv()
-            host.arrancar_mv()
-            host.mostrar_consola_mv()
-            lb.arrancar_mv()
-            lb.mostrar_consola_mv()
-            return
+    elif orden == "parte2":
+        if sys.argv[2] == "start":
+            mv_docker()
+        elif sys.argv[2] == "destruir":
+            docker_destroy()
+    #python3 auto-pc2.py parte2 start
+    #python3 auto-pc2.py parte2 destruir
+
+    elif orden == "parte3":
+        if sys.argv[2] != "destruir":
+            version = sys.argv[2]
+            if version == "v1":
+                mv_docker_compose("v1", False, "black")
+            elif version == "v2":
+                mv_docker_compose("v2", True, "black")
+            else:
+                mv_docker_compose("v3", True, "red")
         else:
-            # MEJORA OPCIONAL Nº4
-            nombre_mv = sys.argv[2]
-            mv = MV(nombre_mv)
-            mv.arrancar_mv()
-            mv.mostrar_consola_mv()
+                docker_destroy()
+    #python3 auto-pc2.py parte3 v1
+    #python3 auto-pc2.py parte3 v2
+    #python3 auto-pc2.py parte3 v3
+    #python3 auto-pc2.py parte3 destruir
 
-    elif orden == "parar":
-        if len(sys.argv) < 3:
-            # Parar los servidores
-            for i in range(num_servidores):
-                s = MV(f's{i + 1}')
-                s.parar_mv()
-            # Parar el resto de máquinas virtuales
-            c1.parar_mv()
-            host.parar_mv()
-            lb.parar_mv()
-            return
+    elif orden == "parte4":
+        if sys.argv[2] == "destruir":
+            destroy_cluster()
+        elif sys.argv[2] == "info":
+            info_cluster()
         else:
-            # MEJORA OPCIONAL Nº4
-            nombre_mv = sys.argv[2]
-            mv = MV(nombre_mv)
-            mv.parar_mv()
+            cluster = sys.argv[2]
+            if sys.argv[3] == "configurar":
+                config_cluster(cluster)
+            else:
+                version = sys.argv[3]
+                mv_kubernetes(version)
+    #python3 auto-pc2.py parte4 nombre-cluster configurar
+    #python3 auto-pc2.py parte4 nombre-cluster v1     
+    #python3 auto-pc2.py parte4 nombre-cluster v2
+    #python3 auto-pc2.py parte4 nombre-cluster v3 
+    #python3 auto-pc2.py parte4 info
+    #python3 auto-pc2.py parte4 destruir
 
-    elif orden == "liberar":
-        # Liberar los servidores
-        for i in range(num_servidores):
-            s = MV(f's{i + 1}')
-            s.liberar_mv()
-        # Liberar el resto de máquinas virtuales
-        c1.liberar_mv()
-        host.liberar_mv()
-        lb.liberar_mv()
-        # Liberar la red
-        red.liberar_red()
-
-    # MEJORA OPCIONAL Nº1
-    elif orden == "monitor":
-        # Monitorizar el estado de las máquinas virtuales
-        subprocess.call(['sudo', 'virsh', 'list', '--all'])
-        
     else:
         print(f"Orden no reconocida: {orden}")
 

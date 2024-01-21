@@ -4,262 +4,114 @@
 # Jaime Gallego Chillón
 # Marta Volpini López
 
-import logging, subprocess, os, getpass
-from lxml import etree
-from copy import deepcopy
+import logging, subprocess, os
 
 log = logging.getLogger('auto_p2')
-    
-class MV:
-  def __init__(self, nombre):
-    self.nombre = nombre
-    self.usuario = getpass.getuser()
-    log.debug('init MV ' + self.nombre)
 
-  # FUNCIÓN PARA CREAR CADA MÁQUINA VIRTUAL
-  def crear_mv (self, imagen, interfaces_red, router):
-    log.debug("crear_mv " + self.nombre)
-    # Crear imágenes de diferencias
-    subprocess.call(['qemu-img', 'create', '-f', 'qcow2', '-b', imagen, f'{self.nombre}.qcow2'])
-    # Crear especificaciones en XML
-    subprocess.call(['cp', 'plantilla-vm-pc1.xml', f'{self.nombre}.xml'])
-    
-    # Cargamos el fichero xml
-    tree = etree.parse(self.nombre + '.xml')
-    # Obtenemos el nodo raiz, buscamos la etiqueta 'name' y luego lo cambiamos
-    root = tree.getroot()
-    name = root.find("name")
-    name.text = self.nombre
-    # Buscamos el nodo 'source' bajo 'disk' bajo 'devices' con nombre 'file' y lo cambiamos
-    source_disk = root.find("./devices/disk/source")
-    source_disk.set("file", "/mnt/tmp/" + self.usuario + "/" + self.nombre + ".qcow2")
+# Despliegue de la aplicación en máquina virtual pesada
+def mv_pesada (puerto):
+  log.debug("mv_pesada ")
+  subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git'])
+  subprocess.run(['find', './', '-type', 'f', '-exec', 'sed', '-i', f's/Simple Bookstore App/GRUPO27/g', '{{}}', '\;'])
+  os.chdir('practica_creativa2/bookinfo/src/productpage')
+  subprocess.call(['pip3', 'install', '-r', 'requirements.txt'])
+  subprocess.call(['python3', 'productpage_monolith.py', f'{puerto}'])
 
-    # Modificar la etiqueta 'interface' dependiendo de si es el router o no
-    if router:
-      # Buscar la etiqueta 'interface' y duplicarla
-      existing_interface = root.find(".//interface")
-      # Modificar el valor del atributo 'source' en el primer nodo 'interface'
-      source1 = existing_interface.find(".//source")
-      source1.set("bridge", "LAN1")
-      # Duplicar la etiqueta 'interface'
-      new_interface = deepcopy(existing_interface)
-      root.find(".//devices").append(new_interface)             
-      # Modificar el valor del atributo 'source' en el segundo nodo 'interface'
-      source2 = new_interface.find(".//source")
-      source2.set("bridge", "LAN2")
-    else:
-      # Buscamos el nodo 'source' bajo 'interface' bajo 'devices' con nombre 'file', imprimimos su valor y lo cambiamos
-      source_interface = root.find("./devices/interface/source")
-      source_interface.set("bridge", interfaces_red)
-    # Guardar los cambios realizados
-    tree.write(self.nombre + '.xml')
+# Despliegue de la aplicación mediante Docker
+def mv_docker ():
+  log.debug("mv_docker ")
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page-mono', '.'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page-mono', '-p', '9080:9080', '-e', 'GROUP_NUMBER=27', 'g27/product-page-mono'])
 
-  # FUNCIÓN PARA ARRANCAR CADA MÁQUINA VIRTUAL
-  def arrancar_mv (self):
-    log.debug("arrancar_mv " + self.nombre)
-    # Crear el contenido de interfaces dependiendo de la máquina virtual
-    if self.nombre == 's1':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.2.31
-        netmask 255.255.255.0
-        gateway 10.11.2.1
+# Eliminar todas las imágenes y contenedores Docker
+def docker_destroy():
+  subprocess.call(['sudo docker stop $(sudo docker ps -aq)'], shell=True)
+  subprocess.call(['sudo docker rm $(sudo docker ps -aq)'], shell=True)
+  subprocess.call(['sudo docker rmi --force $(sudo docker images -q)'], shell=True)
+
+# Despliegue de la aplicación mediante Docker-Compose
+def mv_docker_compose (version, ratings, star):
+  log.debug("mv_docker_compose ")
+  # Guardar directorio raíz
+  raiz = os.getcwd()
+  # Clonar repositorio de la app
+  subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', '/practica_creativa2'])
+  # Crear la imagen de ProductPage
+  log.debug("CONSTRUIR PRODUCT_PAGE")
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page:latest', './ProductPage'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-p', '9080', '-d', '-it', 'g27/product-page:latest'])
+  # Crear la imagen de Details
+  log.debug("CONSTRUIR DETAILS")
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details:latest', './Details'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-details', '-p', '9080', '-d', '-it', 'g27/details:latest'])
+  # Crear la imagen de Ratings
+  log.debug("CONSTRUIR RATINGS")
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings:latest', './Ratings'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-ratings', '-p', '9080', '-d', '-it', 'g27/ratings:latest'])
+  # Crear la imagen de Reviews
+  log.debug("CONSTRUIR REVIEWS")
+  os.chdir('practica_creativa2/bookinfo/src/reviews')
+  subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
+  subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews:latest', './reviews-wlpcfg'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-reviews', '-p', '9080', '-d', '-it', 'g27/reviews:latest'])
+  
+  # Cambiar al directorio raíz
+  os.chdir(raiz)
+  # Crear el contenido del fichero docker-compose.yaml
+  log.debug("CONSTRUIR DOCKER_COMPOSE")
+  contenido_docker_compose = f"""
+      version: '3'
+      services:
+        g27-productpage:
+          image: "g27/product-page:latest"
+          ports:
+            - 9080:9080
+          environment:
+            - GROUP_NUMBER=27
+        g27-details:
+          image: "g27/details:latest"
+          environment:
+            - SERVICE_VERSION=v1
+            - ENABLE_EXTERNAL_BOOK_SERVICE=true
+        g27-reviews:
+          image: "g27/reviews:latest"
+          environment:
+            - SERVICE_VERSION={version}
+            - ENABLE_RATINGS={ratings}
+            - STAR_COLOR={star}
+        g27-ratings:
+          image: "g27/ratings:latest"
       """
-    elif self.nombre == 's2':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.2.32
-        netmask 255.255.255.0
-        gateway 10.11.2.1
-      """
-    elif self.nombre == 's3':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.2.33
-        netmask 255.255.255.0
-        gateway 10.11.2.1
-      """
-    elif self.nombre == 's4':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.2.34
-        netmask 255.255.255.0
-        gateway 10.11.2.1
-      """
-    elif self.nombre == 's5':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.2.35
-        netmask 255.255.255.0
-        gateway 10.11.2.1
-      """
-    elif self.nombre == 'c1':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.1.2
-        netmask 255.255.255.0
-        gateway 10.11.1.1
-      """
-    elif self.nombre == 'host':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.1.3
-        netmask 255.255.255.0
-        gateway 10.11.1.1
-      """
-    elif self.nombre == 'lb':
-      contenido_interfaces = """
-      auto lo
-      iface lo inet loopback
-      
-      auto eth0
-        iface eth0 inet static
-        address 10.11.1.1
-        netmask 255.255.255.0
-      
-      auto eth1
-        iface eth1 inet static
-        address 10.11.2.1
-        netmask 255.255.255.0
-      """
+  # Escribir el contenido en el fichero docker-compose.yaml
+  with open('docker-compose.yaml', 'w') as file:
+    file.write(contenido_docker_compose)
 
-    # Directorio de trabajo actual
-    directorio_trabajo = os.getcwd()
+  # Crear los contenedores
+  #subprocess.call(['sudo', 'docker-compose', 'up', '-d'])
+  #subprocess.call(['sudo', 'docker-compose', 'build'])
+  subprocess.call(['sudo', 'docker-compose', 'up'])
 
-    # Ruta completa del archivo "interfaces"
-    ruta_interfaces = os.path.join(directorio_trabajo, "interfaces")
-    # Escribir el contenido sobre el archivo "interfaces"
-    with open(ruta_interfaces, 'w') as interfaces:
-      interfaces.write(contenido_interfaces)
+def config_cluster(cluster):
+  # Configurar el cluster
+  subprocess.call(['gcloud', 'container', 'clusters', 'resize', f'{cluster}', '--num-nodes=5', '--zone=europe-southwest1'])
+  subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1'])
+  subprocess.call(['gcloud', 'auth', 'configure-docker', '-q'])
 
-    # Ruta completa del archivo "hostname"
-    ruta_hostname = os.path.join(directorio_trabajo, "hostname")
-    # Escribir el contenido sobre el archivo "hostname"
-    with open(ruta_hostname, 'w') as hostname:
-      hostname.write(f'{self.nombre}')
+def mv_kubernetes(version):
+  log.debug("mv_kubernetes ")
+  # Desplegar el escenario
+  subprocess.call(['kubectl', 'apply', '-f', f'./deployment-{version}.yaml'])
+  # Mostrar información de los pods y los services
+  subprocess.call(['kubectl', 'get', 'pods'])
+  subprocess.call(['kubectl', 'get', 'services'])
 
-    # Copiar los ficheros de configuración a las máquinas virtuales
-    subprocess.call(['sudo', 'virt-copy-in', '-a', f'{self.nombre}.qcow2', 'interfaces', '/etc/network'])
-    subprocess.call(['sudo', 'virt-copy-in', '-a', f'{self.nombre}.qcow2', 'hostname', '/etc'])
+def destroy_cluster():
+  # Destruir el escenario de la parte 4
+  subprocess.call(['kubectl', 'delete', '--all', 'pods'])
+  subprocess.call(['kubectl', 'delete', '--all', 'deployments'])
+  subprocess.call(['kubectl', 'delete', '--all', 'services'])
 
-    # Editar el archivo "hosts"
-    subprocess.call(['sudo', 'virt-edit', '-a', f'{self.nombre}.qcow2', '/etc/hosts', '-e', '"s/127.0.1.1.*/127.0.1.1', f'{self.nombre}/"'])
-
-    # Configurar el balanceador de tráfico para que funcione como router al arrancar
-    if self.nombre == 'lb':
-      os.system('sudo virt-edit -a lb.qcow2 /etc/sysctl.conf -e "s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/"')
-      
-      # MEJORA OPCIONAL Nº2
-      # Ruta completa al archivo "rc.local"
-      ruta_rc = os.path.join(directorio_trabajo, "rc.local")
-      # Crear el contenido de rc.local
-      contenido_rc = """
-      #!/bin/bash
-
-      # Detener el servicio Apache
-      sudo service apache2 stop
-
-      # Añadir configuración a haproxy.cfg
-      sudo cat <<EOL >> /etc/haproxy/haproxy.cfg
-      frontend lb
-      bind *:80
-      mode http
-      default_backend webservers
-      backend webservers
-      mode http
-      balance roundrobin
-      server s1 10.11.2.31:80 check
-      server s2 10.11.2.32:80 check
-      server s3 10.11.2.33:80 check
-      EOL
-
-      # Reiniciar el servicio HAProxy
-      sudo service haproxy restart
-
-      exit 0
-      """
-      # Escribir el contenido sobre el archivo "rc"
-      with open(ruta_rc, 'w') as rc:
-        rc.write(contenido_rc)
-      # Copiar el fichero de configuración al router lb
-      subprocess.call(['sudo', 'virt-copy-in', '-a', 'lb.qcow2', 'rc.local', '/etc'])
-      # Asignar permisos de ejecución al archivo rc.local en el router lb
-      subprocess.call(['sudo', 'virt-customize', '-a', 'lb.qcow2', '--run-command', 'chmod +x {}'.format('/etc/rc.local')])
-    
-    # Arrancar el gestor de máquinas virtuales
-    os.environ['HOME']='/mnt/tmp'
-    subprocess.call(['sudo', 'virt-manager'])
-    # Arrancar cada máquina virtual
-    subprocess.call(['sudo', 'virsh', 'define', f'{self.nombre}.xml'])
-    subprocess.call(['sudo', 'virsh', 'start', f'{self.nombre}'])
-
-  # FUNCIÓN PARA MOSTRAR LA CONSOLA DE CADA MÁQUINA VIRTUAL
-  def mostrar_consola_mv (self):
-    log.debug("mostrar_mv " + self.nombre)
-    # Arrancar la consola de la máquina virtual
-    subprocess.call([f"xterm -rv -sb -rightbar -fa monospace -fs 10 -title '{self.nombre}' -e 'sudo virsh console {self.nombre}' &"], shell=True)
-
-  # FUNCIÓN PARA PARAR CADA MÁQUINA VIRTUAL
-  def parar_mv (self):
-    log.debug("parar_mv " + self.nombre)
-    # Detener la máquina virtual
-    subprocess.call(['sudo', 'virsh', 'shutdown', f'{self.nombre}'])
-
-  # FUNCIÓN PARA LIBERAR CADA MÁQUINA VIRTUAL Y ELIMINAR SUS FICHEROS ASOCIADOS
-  def liberar_mv (self):
-    log.debug("liberar_mv " + self.nombre)
-    # Liberar la máquina virtual
-    subprocess.call(['sudo', 'virsh', 'destroy', f'{self.nombre}'])
-    # Borrar sus ficheros asociados
-    subprocess.call(['rm', '-f', f'{self.nombre}.qcow2', f'{self.nombre}.xml', 'interfaces', 'hostname', 'rc.local'])
-
-class Red:
-  def __init__(self, nombre):
-    self.nombre = nombre
-    log.debug('init Red ' + self.nombre)
-
-  # FUNCIÓN PARA CREAR LA RED
-  def crear_red(self):
-      log.debug('crear_red ' + self.nombre)
-      # Crear los bridges correspondientes a las dos redes virtuales
-      subprocess.call(['sudo', 'brctl', 'addbr', 'LAN1'])
-      subprocess.call(['sudo', 'brctl', 'addbr', 'LAN2'])
-      subprocess.call(['sudo', 'ifconfig', 'LAN1', 'up'])
-      subprocess.call(['sudo', 'ifconfig', 'LAN2', 'up'])
-
-  # FUNCIÓN PARA LIBERAR LA RED
-  def liberar_red(self):
-      log.debug('liberar_red ' + self.nombre)
-      # Eliminar los bridges correspondientes a las dos redes virtuales
-      subprocess.call(['sudo', 'ifconfig', 'LAN1', 'down'])
-      subprocess.call(['sudo', 'ifconfig', 'LAN2', 'down'])
-      subprocess.call(['sudo', 'brctl', 'delbr', 'LAN1'])
-      subprocess.call(['sudo', 'brctl', 'delbr', 'LAN2'])
+def info_cluster():
+  # Mostrar información de los pods y los services
+  subprocess.call(['kubectl', 'get', 'pods'])
+  subprocess.call(['kubectl', 'get', 'services'])
