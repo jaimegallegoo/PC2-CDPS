@@ -40,7 +40,7 @@ spec:
         image: grupo27cdps/product-page
         env:
         - name: GROUP_NUMBER
-          value: "GRUPO27"
+          value: "27"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080

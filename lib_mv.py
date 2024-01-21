@@ -110,3 +110,8 @@ def destroy_cluster():
   subprocess.call(['kubectl', 'delete', '--all', 'pods'])
   subprocess.call(['kubectl', 'delete', '--all', 'deployments'])
   subprocess.call(['kubectl', 'delete', '--all', 'services'])
+
+def info_cluster():
+  # Mostrar información de los pods y los services
+  subprocess.call(['kubectl', 'get', 'pods'])
+  subprocess.call(['kubectl', 'get', 'services'])
