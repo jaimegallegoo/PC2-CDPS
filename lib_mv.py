@@ -39,7 +39,7 @@ def mv_docker_compose (version, ratings, star):
   #Crear la imagen de ProductPage
   log.debug("CONSTRUIR PRODUCT_PAGE")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page:latest', './ProductPage'])
-  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-d', '-it', 'g27/product-page:latest'])
+  subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-p', '9080:9080', '-d', '-it', 'g27/product-page:latest'])
   #Crear la imagen de Details
   log.debug("CONSTRUIR DETAILS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details:latest', './Details'])
