@@ -50,6 +50,7 @@ def main():
     #python3 auto-pc2.py parte3 v1
     #python3 auto-pc2.py parte3 v2
     #python3 auto-pc2.py parte3 v3
+    #python3 auto-pc2.py parte3 destruir
 
     elif orden == "parte4":
         if sys.argv[2] != "destruir":

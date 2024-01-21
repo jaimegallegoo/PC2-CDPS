@@ -32,32 +32,32 @@ def docker_destroy():
 # Despliegue de la aplicación mediante Docker-Compose
 def mv_docker_compose (version, ratings, star):
   log.debug("mv_docker_compose ")
-  #Guardar directorio raíz
+  # Guardar directorio raíz
   raiz = os.getcwd()
-  #Clonar repositorio de la app
+  # Clonar repositorio de la app
   subprocess.call(['git', 'clone', 'https://github.com/CDPS-ETSIT/practica_creativa2.git', '/practica_creativa2'])
-  #Crear la imagen de ProductPage
+  # Crear la imagen de ProductPage
   log.debug("CONSTRUIR PRODUCT_PAGE")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/product-page:latest', './ProductPage'])
   subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-product-page', '-p', '9080:9080', '-d', '-it', 'g27/product-page:latest'])
-  #Crear la imagen de Details
+  # Crear la imagen de Details
   log.debug("CONSTRUIR DETAILS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/details:latest', './Details'])
   subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-details', '-d', '-it', 'g27/details:latest'])
-  #Crear la imagen de Ratings
+  # Crear la imagen de Ratings
   log.debug("CONSTRUIR RATINGS")
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/ratings:latest', './Ratings'])
   subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-ratings', '-d', '-it', 'g27/ratings:latest'])
-  #Crear la imagen de Reviews
+  # Crear la imagen de Reviews
   log.debug("CONSTRUIR REVIEWS")
   os.chdir('practica_creativa2/bookinfo/src/reviews')
   subprocess.call(['sudo', 'docker', 'run', '--rm', '-u', 'root', '-v', '/home/gradle/project', '-w', '/home/gradle/project', 'gradle:4.8.1', 'gradle', 'clean', 'build'])
   subprocess.call(['sudo', 'docker', 'build', '-t', 'g27/reviews:latest', './reviews-wlpcfg'])
   subprocess.call(['sudo', 'docker', 'run', '--name', 'g27-reviews', '-d', '-it', 'g27/reviews:latest'])
   
-  #Cambiar al directorio raíz
+  # Cambiar al directorio raíz
   os.chdir(raiz)
-  #Crear el contenido del fichero docker-compose.yaml
+  # Crear el contenido del fichero docker-compose.yaml
   log.debug("CONSTRUIR DOCKER_COMPOSE")
   contenido_docker_compose = f"""
       version: '3'
@@ -82,33 +82,31 @@ def mv_docker_compose (version, ratings, star):
         g27-ratings:
           image: "g27/ratings:latest"
       """
-  #Escribir el contenido en el fichero docker-compose.yaml
+  # Escribir el contenido en el fichero docker-compose.yaml
   with open('docker-compose.yaml', 'w') as file:
     file.write(contenido_docker_compose)
 
-  #Crear los contenedores
+  # Crear los contenedores
   #subprocess.call(['sudo', 'docker-compose', 'up', '-d'])
   #subprocess.call(['sudo', 'docker-compose', 'build'])
   subprocess.call(['sudo', 'docker-compose', 'up'])
-  #subprocess.call(['sudo', 'docker-compose', '--env-file', 'envs_v1.env', 'up'])
-  #subprocess.call(['sudo', 'docker-compose', 'up', '--build'])
 
 def config_cluster(cluster):
-  #Configurar el cluster
+  # Configurar el cluster
   subprocess.call(['gcloud', 'container', 'clusters', 'resize', f'{cluster}', '--num-nodes=5', '--zone=europe-southwest1'])
   subprocess.call(['gcloud', 'container', 'clusters', 'update', f'{cluster}', '--no-enable-autoscaling', '--zone=europe-southwest1'])
   subprocess.call(['gcloud', 'auth', 'configure-docker', '-q'])
 
 def mv_kubernetes(version):
   log.debug("mv_kubernetes ")
-  #Desplegar el escenario
+  # Desplegar el escenario
   subprocess.call(['kubectl', 'apply', '-f', f'./deployment-{version}.yaml'])
+  # Mostrar información de los pods y los services
   subprocess.call(['kubectl', 'get', 'pods'])
-  #Aquí ves la IP EXTERNA con la que tienes que consultar la aplicación
   subprocess.call(['kubectl', 'get', 'services'])
 
 def destroy_cluster():
-  #Destruir el escenario de la parte 4
+  # Destruir el escenario de la parte 4
   subprocess.call(['kubectl', 'delete', '--all', 'pods'])
   subprocess.call(['kubectl', 'delete', '--all', 'deployments'])
   subprocess.call(['kubectl', 'delete', '--all', 'services'])
