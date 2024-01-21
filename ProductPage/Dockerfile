@@ -19,7 +19,7 @@ RUN apt-get update -y \
 
 # Cambiar el título de la app y lanzar app en el puerto 9080
 CMD find ./ -type f -exec sed -i "s/Simple Bookstore App/GRUPO$GROUP_NUMBER/g" {} \; \
-    && python3 practica_creativa2/bookinfo/src/productpage/productpage_monolith.py 9080
+    && python3 practica_creativa2/bookinfo/src/productpage/productpage.py 9080
 
 # Indicar que se ha instalado correctamente
 RUN echo "La imagen Docker de PRODUCT PAGE se ha instalado correctamente"
