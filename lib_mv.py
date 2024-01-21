@@ -60,8 +60,7 @@ def mv_docker_compose (version, ratings, star):
   #Crear el contenido del fichero docker-compose.yaml
   log.debug("CONSTRUIR DOCKER_COMPOSE")
   contenido_docker_compose = f"""
-      version: '3.3'
-
+      version: '3'
       services:
         g27-productpage:
           image: "g27/product-page:latest"
@@ -69,28 +68,19 @@ def mv_docker_compose (version, ratings, star):
             - 9080:9080
           environment:
             - GROUP_NUMBER=27
-
         g27-details:
           image: "g27/details:latest"
-          ports:
-            - 9080
           environment:
             - SERVICE_VERSION=v1
             - ENABLE_EXTERNAL_BOOK_SERVICE=true
-
         g27-reviews:
           image: "g27/reviews:latest"
-          ports:
-            - 9080
           environment:
             - SERVICE_VERSION={version}
             - ENABLE_RATINGS={ratings}
             - STAR_COLOR={star}
-
         g27-ratings:
           image: "g27/ratings:latest"
-          ports:
-            - 9080
       """
   #Escribir el contenido en el fichero docker-compose.yaml
   with open('docker-compose.yaml', 'w') as file:
