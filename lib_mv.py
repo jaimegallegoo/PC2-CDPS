@@ -76,9 +76,9 @@ def mv_docker_compose (version, ratings, star):
         g27-reviews:
           image: "g27/reviews:latest"
           environment:
-            - SERVICE_VERSION=v3
-            - ENABLE_RATINGS=true
-            - STAR_COLOR=red
+            - SERVICE_VERSION={version}
+            - ENABLE_RATINGS={ratings}
+            - STAR_COLOR={star}
         g27-ratings:
           image: "g27/ratings:latest"
       """
