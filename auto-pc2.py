@@ -37,13 +37,16 @@ def main():
     #python3 auto-pc2.py parte2 destruir
 
     elif orden == "parte3":
-        version = sys.argv[2]
-        if version == "v1":
-            mv_docker_compose("v1", False, "black")
-        elif version == "v2":
-            mv_docker_compose("v2", True, "black")
+        if sys.argv[2] != "destruir":
+            version = sys.argv[2]
+            if version == "v1":
+                mv_docker_compose("v1", False, "black")
+            elif version == "v2":
+                mv_docker_compose("v2", True, "black")
+            else:
+                mv_docker_compose("v3", True, "red")
         else:
-            mv_docker_compose("v3", True, "red")
+                docker_destroy()
     #python3 auto-pc2.py parte3 v1
     #python3 auto-pc2.py parte3 v2
     #python3 auto-pc2.py parte3 v3
